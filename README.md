@@ -1,5 +1,3 @@
-
- 
  CodSoft--Internship-C++
 CodSoft Internship (C++ Programming)
 
