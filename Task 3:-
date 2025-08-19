@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+char board[3][3];
+char currentPlayer;
+
+void resetBoard() {
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            board[i][j] = ' ';
+    currentPlayer = 'X';
+}
+
+void printBoard() {
+    cout << "-------------\n";
+    for (int i = 0; i < 3; i++) {
+        cout << "| ";
+        for (int j = 0; j < 3; j++) {
+            cout << board[i][j] << " | ";
+        }
+        cout << "\n-------------\n";
+    }
+}
+
+bool isValidMove(int r, int c) {
+    return r >= 0 && r < 3 && c >= 0 && c < 3 && board[r][c] == ' ';
+}
+
+bool checkWin() {
+    for (int i = 0; i < 3; i++) {
+        if (board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) return true;
+        if (board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer) return true;
+    }
+    if (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) return true;
+    if (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer) return true;
+    return false;
+}
+
+bool isDraw() {
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            if (board[i][j] == ' ') return false;
+    return true;
+}
+
+void switchPlayer() {
+    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+}
+
+int main() {
+    char playAgain;
+    do {
+        resetBoard();
+        bool gameOver = false;
+        while (!gameOver) {
+            printBoard();
+            int r, c;
+            cout << "Player " << currentPlayer << ", enter row and column (0-2): ";
+            cin >> r >> c;
+            if (isValidMove(r, c)) {
+                board[r][c] = currentPlayer;
+                if (checkWin()) {
+                    printBoard();
+                    cout << "Player " << currentPlayer << " wins!\n";
+                    gameOver = true;
+                } else if (isDraw()) {
+                    printBoard();
+                    cout << "It's a draw!\n";
+                    gameOver = true;
+                } else {
+                    switchPlayer();
+                }
+            } else {
+                cout << "Invalid move. Try again.\n";
+            }
+        }
+        cout << "Play again? (y/n): ";
+        cin >> playAgain;
+    } while (playAgain == 'y' || playAgain == 'Y');
+    return 0;
+}
