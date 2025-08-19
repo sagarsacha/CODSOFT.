@@ -1,5 +1,5 @@
- #CodSoft Internship - c++
- CodSoft Internship (C++ Programming)
+CodSoft--Internship-C++
+CodSoft Internship (C++ Programming)
 
 Projects on C++ Programming Internship
 
